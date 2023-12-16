@@ -12,7 +12,7 @@ SELECT
 	cpc.price_unit 
 FROM czechia_payroll cp
 JOIN czechia_payroll_industry_branch cpib 
-ON cpib.code = cp.industry_branch_code 
+	ON cpib.code = cp.industry_branch_code 
 JOIN (
 		SELECT YEAR(subCp.date_from) AS cpYear,
 		AVG(subCp.value) AS avgValue,
@@ -23,7 +23,8 @@ JOIN (
 		WHERE YEAR(subCp.date_from) BETWEEN 2006 AND 2018
 		GROUP BY YEAR(subCp.date_from), subCp.category_code
 	) AS cp2 ON cp.payroll_year = cp2.cpYear
-JOIN czechia_price_category cpc ON cpc.code = cp2.category_code
+JOIN czechia_price_category cpc 
+	ON cpc.code = cp2.category_code
 WHERE cp.calculation_code = 100 
 AND cp.value IS NOT NULL 
 AND cp.unit_code = 200 
